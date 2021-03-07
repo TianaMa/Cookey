@@ -1,0 +1,209 @@
+<resources>
+
+    <string name="app_name">Cook</string>
+    <string name="text_attention">Add</string>
+    <string name="text_fans">Fans</string>
+
+    <string name="text_recipe">Recipe</string>
+    <string name="text_product">Product</string>
+    <string name="text_next">Next step</string>
+    <string name="text_prompt">Tips</string>
+    <string name="text_cancel">Cancel</string>
+    <string name="text_check_all">Check All</string>
+    <string name="text_delete">Delete</string>
+
+    <string name="text_confirm">Confirm</string>
+    <string name="text_man">Man</string>
+    <string name="text_woman">Woman</string>
+
+    <string name="text_search">Search</string>
+
+    <string name="text_search_product">Search more product</string>
+    <string name="text_search_recipe">Search more recipe</string>
+
+    <string name="text_goto_login">Login</string>
+    <string name="text_login_please">Please input account number</string>
+    <string name="text_dialog_title">Tips</string>
+
+    <!--common-->
+    <string name="text_service_error">Network error</string>
+
+    <string name="text_upload_image">Upload image...</string>
+    <string name="text_upload_image_fail">Image upload failed</string>
+
+    <string name="text_loading">Loading...</string>
+    <string name="text_update_success">Succeed</string>
+    <string name="text_publishing">Publishing...</string>
+    <string name="text_edit">Edit</string>
+    <string name="text_save">Save</string>
+    <string name="text_finish">Finish</string>
+    <string name="text_count">Count</string>
+
+    <string name="text_praise">Praise</string>
+    <string name="text_collect">Collect</string>
+    <string name="text_comment">Comment</string>
+    <string name="text_no_data">Still Nothing</string>
+
+    <string name="text_subscribe">Add</string>
+    <string name="text_subscribe_cancel">Cancel</string>
+
+    <string name="text_loading_login">Login...</string>
+    <string name="text_loading_register">Registering...</string>
+
+    <!--WelcomeActivity-->
+    <string name="text_welcome_jump">Skip</string>
+
+    <!--LoginActivity-->
+    <string name="text_login_user_hint">User Account</string>
+    <string name="text_login_password_hint">Password</string>
+    <string name="text_login">Login</string>
+    <string name="text_login_register_account">Signin</string>
+    <string name="text_login_visitor">Visitors</string>
+
+    <!--RegisterActivity-->
+    <string name="text_register">Sign in</string>
+    <string name="text_register_hint_account">Please input account number</string>
+    <string name="text_register_hint_password">Please input password</string>
+    <string name="text_register_hint_password_again">Please confirm password</string>
+    <string name="text_register_password_un_same">Confirm unsuccessfully</string>
+    <string name="text_success">Succeed</string>
+
+
+    <!--MainActivity-->
+    <string name="title_home">Home</string>
+    <string name="title_classes">Class</string>
+    <string name="title_shop">Shop</string>
+    <string name="title_like">Collect</string>
+    <string name="title_me">My</string>
+
+    <!--HomeFragment-->
+    <string name="text_home_friends">Friends</string>
+    <string name="text_home_recommend">Recommend</string>
+    <string name="text_friend_recommend">Possible friends</string>
+
+    <!--MeFragment-->
+    <string name="text_me_be_collected">Friends</string>
+    <string name="text_publish">Publish</string>
+    <string name="text_me_search_my_recipe">Search my recipe</string>
+    <string name="text_search_my_collect">Search my collection</string>
+
+    <!--shop-->
+    <string name="text_search_goods">Search goods</string>
+    <string name="text_shopping_cart">Cart</string>
+    <string name="text_shop_add_to_cart">Add cart</string>
+    <string name="text_shop_buy">Buy Now</string>
+    <string name="text_settle_accounts">Settle Accounts</string>
+    <string name="text_total">Total:$</string>
+    <string name="text_shopping_cart_empty">Empty</string>
+    <string name="text_dialog_delete_goods">Are you sure delete this？</string>
+
+    <string name="text_settle_title">Ensure order</string>
+    <string name="text_settle_pay">Pay</string>
+    <string name="text_settle_total">Total Pay: $  </string>
+    <string name="text_settle_pay_way">Payment Method</string>
+    <string name="text_settle_pay_way_ali">AliPay</string>
+    <string name="text_settle_pay_way_we_chat">BankAccount</string>
+    <string name="text_settle_add_address">Add Address</string>
+
+
+    <!--MyInfoActivity-->
+    <string name="text_me_info">Personal Information</string>
+    <string name="text_me_nickname">Personal Detail</string>
+    <string name="text_me_gender">Gender</string>
+    <string name="text_me_birthday">Birthday</string>
+    <string name="text_me_profession">Job</string>
+    <string name="text_me_hometown">Hometown</string>
+    <string name="text_me_address">Address</string>
+    <string name="text_me_signature">Introduction</string>
+
+    <!--PublishTypeActivity-->
+    <string name="text_publish_slogan">Share experiences, share happiness</string>
+    <string name="text_publish_recipe">Recipe</string>
+    <string name="text_publish_product">Product</string>
+    <string name="text_publish_video">Video</string>
+
+    <!--PublishRecipeNameActivity-->
+    <string name="text_publish_recipe_create">Create recipe</string>
+    <string name="text_publish_recipe_name">Write down the names of your recipes</string>
+    <string name="text_publish_recipe_name_prompt">
+        1. A good headline is the first step to attracting the attention of a chef\n
+        2. Describing the features of the recipe in the title will attract more clicks.
+        for example [Rice balls without pinch]、[Braised pork in brown sauce without blanching or oil]
+    </string>
+    <!--PublishRecipeActivity-->
+    <string name="text_publish_recipe_save_draft">Save Draft</string>
+    <string name="text_publish_recipe_cover_hint">+The menu cover \n A friendly cover could get attention from others</string>
+    <string name="text_publish_recipe_describe">What is you recipes story?</string>
+
+    <string name="text_publish_recipe_material">Ingredients</string>
+
+    <string name="text_publish_recipe_material_example">Ingredients: Egg</string>
+    <string name="text_publish_recipe_dosage_example">Consumption：1</string>Cover
+    <string name="text_publish_recipe_add_material">Add more</string>
+    <string name="text_publish_recipe_adjust_material">Fix</string>
+
+    <string name="text_publish_recipe_method">Direction</string>
+    <string name="text_publish_recipe_batch">Upload Images</string>
+    <string name="text_publish_recipe_step">Steps</string>
+    <string name="text_publish_recipe_add_step_explain">Add direction, at least two.</string>
+
+    <string name="text_publish_recipe_add_step">Add more</string>
+    <string name="text_publish_recipe_adjust_step">Fix</string>
+
+    <string name="text_publish_recipe_drag">d\nr\na\ng</string>
+
+    <string name="text_publish_recipe_adjust_success">Finish</string>
+
+    <string name="text_publish_recipe_tips">Tips</string>
+    <string name="text_publish_recipe_tips_hint">A little tip about this dish</string>
+
+    <string name="text_publish_recipe_publish">Publish</string>
+    <string name="text_publish_recipe_cant_empty_cover">Please submit the cover image.</string>
+    <string name="text_publish_recipe_cant_empty_material">Ingredients can not empty</string>
+    <string name="text_publish_recipe_cant_empty_material_name">Please submit the %1$s ingredient name</string>
+    <string name="text_publish_recipe_cant_empty_material_dosage">Please submit the %1$s ingredient consumption</string>
+
+    <string name="text_publish_recipe_cant_empty_step">Step can not empty</string>
+    <string name="text_publish_recipe_cant_empty_step_content">Please submit the %1$s describe</string>
+
+    <string name="text_confirm_quit">Are you sure you want to exit?</string>
+
+    <string name="text_select_sort">Choose category</string>
+
+
+    <!--MyPublishRecipeFragment-->
+    <string name="text_my_publish_recipe_go">Start your first recipe.</string>
+    <string name="text_my_publish_product_empty_toast">Record life, record beautiful memories...</string>
+    <string name="text_my_publish_product_go">Share my product</string>
+
+    <!--MyPublishProductActivity-->
+    <string name="text_my_product_all">All Product</string>
+
+    <!--PublishProductActivity-->
+    <string name="text_publish_product_title_hint">An interesting name will get more attention.</string>
+    <string name="text_publish_product_title_content">Share experience, share life...</string>
+    <string name="text_publish_product_tag"># Tag</string>
+    <string name="text_publish_product_add_tag">Add tag?</string>
+    <string name="text_product_title_cant_empty">Please input recipe name</string>
+    <string name="text_product_content_cant_empty">How you feeling?</string>
+
+    <string name="text_recipe_recommend">Recommended recipe</string>
+
+    <string name="text_order_praise">The top favorites</string>
+    <string name="text_order_collect">The top collection</string>
+    <string name="text_order_new">The news</string>
+
+    <!--RecipeDetailsActivity-->
+    <string name="text_collect_number">collects</string>
+
+    <!--评论相关-->
+    <string name="text_comment_size">comments</string>
+    <string name="text_view_all">All</string>
+    <string name="text_send">Send</string>
+    <string name="text_write_comment">Write comments...</string>
+    <string name="text_content_not_empty">Can not empty</string>
+    <string name="text_comment_success">Succeed</string>
+    <string name="text_reply">Reply: </string>
+
+    
+</resources>

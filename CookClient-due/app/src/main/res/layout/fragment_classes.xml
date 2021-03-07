@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@android:color/white"
+        tools:context=".ui.classes.ClassesFragment">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/scroll_tb_header"
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+
+            <TextView
+                android:id="@+id/tvClassesSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shape_corners_5"
+                android:backgroundTint="#E9E9E9"
+                android:drawableLeft="@drawable/vector_ic_search"
+                android:drawablePadding="5dp"
+                android:hint="@string/text_search_recipe"
+                android:padding="10dp"
+                android:textSize="13sp" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.to.aboomy.pager2banner.Banner
+                    android:id="@+id/bannerClasses"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvClassesSort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:orientation="vertical"
+                    app:spanCount="5"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    tools:itemCount="10"
+                    tools:listitem="@layout/item_layout_recipe_menu"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/text_recipe_recommend"/>
+
+                <FrameLayout
+                    android:id="@+id/flClassesRecommend"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+
+
+
+        </androidx.core.widget.NestedScrollView>
+
+
+
+
+    </LinearLayout>
+</layout>

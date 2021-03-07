@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="imagePath"
+            type="java.lang.String" />
+    </data>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        srcPath="@{imagePath}"
+        error="@{@drawable/logo_login}"
+        placeholder="@{@drawable/logo_login}"
+        ratio="@{1.0F}"
+        android:src="@drawable/logo_login"/>
+
+
+</layout>

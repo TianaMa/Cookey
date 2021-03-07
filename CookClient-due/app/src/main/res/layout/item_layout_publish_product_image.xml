@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="productImage"
+            type="java.lang.String" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="3dp"
+            android:scaleType="fitXY"
+            srcPath="@{productImage}"
+            error="@{@drawable/logo_login}"
+            placeholder="@{@drawable/logo_login}"
+            android:src="@drawable/logo_login"/>
+
+        <ImageView
+            android:id="@+id/ivDeleteImage"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:layout_gravity="right"
+            android:background="@drawable/shape_border_circle_white"
+            android:backgroundTint="#33000000"
+            android:src="@drawable/vector_ic_delete_image">
+
+        </ImageView>
+
+    </FrameLayout>
+
+
+</layout>

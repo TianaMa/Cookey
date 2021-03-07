@@ -1,0 +1,14 @@
+INSERT INTO `t_product_tag`(`tagId`, `tagName`, `createTime`) VALUES ('a35b544a-fa7d-11ea-9c0e-04d4c4712e49', 'One Meal', '2020-11-04 12:11:31');
+INSERT INTO `t_product_tag`(`tagId`, `tagName`, `createTime`) VALUES ('ed61001c-fa7d-11ea-9c0e-04d4c4712e49', 'Afternoon Tea', '2020-11-04 12:13:19');
+INSERT INTO `t_product_tag`(`tagId`, `tagName`, `createTime`) VALUES ('ed610457-fa7d-11ea-9c0e-04d4c4712e49', 'Vegetarian', '2020-11-04 12:13:27');
+INSERT INTO `t_product_tag`(`tagId`, `tagName`, `createTime`) VALUES ('ed61061b-fa7d-11ea-9c0e-04d4c4712e49', 'Bento', '2020-11-04 12:13:31');
+INSERT INTO `t_product_tag`(`tagId`, `tagName`, `createTime`) VALUES ('ed61065b-fa7d-11ea-9c0e-04d4c4712e49', 'Soup', '2020-11-04 12:13:34');
+INSERT INTO `t_product_tag`(`tagId`, `tagName`, `createTime`) VALUES ('ed6106b6-fa7d-11ea-9c0e-04d4c4712e49', 'Dessert', '2020-11-04 12:13:42');
+INSERT INTO `t_product_tag`(`tagId`, `tagName`, `createTime`) VALUES ('ed6106ee-fa7d-11ea-9c0e-04d4c4712e49', 'Breakfast', '2020-11-04 12:13:46');
+INSERT INTO `t_product_tag`(`tagId`, `tagName`, `createTime`) VALUES ('ed61071f-fa7d-11ea-9c0e-04d4c4712e49', 'Lunch', '2020-11-04 12:13:49');
+INSERT INTO `t_product_tag`(`tagId`, `tagName`, `createTime`) VALUES ('ed610759-fa7d-11ea-9c0e-04d4c4712e49', 'Dinner', '2020-11-04 12:13:52');
+INSERT INTO `t_product_tag`(`tagId`, `tagName`, `createTime`) VALUES ('ed6107a7-fa7d-11ea-9c0e-04d4c4712e49', 'Chinese', '2020-11-04 12:13:58');
+INSERT INTO `t_product_tag`(`tagId`, `tagName`, `createTime`) VALUES ('ed6107db-fa7d-11ea-9c0e-04d4c4712e49', 'Japanese', '2020-11-04 12:14:02');
+INSERT INTO `t_product_tag`(`tagId`, `tagName`, `createTime`) VALUES ('ed61085b-fa7d-11ea-9c0e-04d4c4712e49', 'Sushi', '2020-11-04 12:14:12');
+INSERT INTO `t_product_tag`(`tagId`, `tagName`, `createTime`) VALUES ('ed61088e-fa7d-11ea-9c0e-04d4c4712e49', 'Fruit', '2020-11-04 12:14:16');
+INSERT INTO `t_product_tag`(`tagId`, `tagName`, `createTime`) VALUES ('ed6108bf-fa7d-11ea-9c0e-04d4c4712e49', 'Meat', '2020-11-04 13:30:23');

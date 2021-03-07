@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.cook.modules.user.mapper.UserMapper">
+
+
+
+
+
+  <select id="getCountUserByUsername" parameterType="java.lang.String" resultType="java.lang.Integer" >
+    select count(1) from t_user where username = #{username,jdbcType=VARCHAR}
+  </select>
+
+
+
+  <insert id="insertSelective" parameterType="com.demo.cook.modules.user.model.Register">
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="headImg != null">
+        headImg,
+      </if>
+      registerDate,
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="headImg != null">
+        #{headImg,jdbcType=VARCHAR},
+      </if>
+      SYSDATE(),
+
+    </trim>
+  </insert>
+  <update id="updateUserInfoSelective" parameterType="com.demo.cook.modules.user.model.User">
+    update t_user
+    <set>
+
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="headImg != null">
+        headImg = #{headImg,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null">
+        profession = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="hometown != null">
+        hometown = #{hometown,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null">
+        signature = #{signature,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where username = #{username,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="selectUserByLogin" parameterType="java.lang.String" resultType="com.demo.cook.modules.user.model.UserInfo">
+
+    select
+    U.username, U.nickname, U.headImg, DATE_FORMAT(U.registerDate,'%Y-%m-%d') 'registerDate', U.gender, U.birthday, U.profession,
+    U.hometown, U.address, U.signature,
+    P.count 'countProduct',
+    R.count 'countRecipe',
+    UCC.count 'countCollect',
+    UOU.count 'countBeCared',
+    UCU.count 'countSubscribe'
+    from t_user U
+    LEFT JOIN (select issuer 'issuer'  ,count(1) 'count' from t_product group by issuer )P on U.username = P.issuer
+    LEFT JOIN (select issuer 'issuer'  ,count(1) 'count' from t_recipe group by issuer )R on U.username = R.issuer
+    LEFT JOIN (select username 'username'  ,count(1) 'count' from t_user_collect group by username) UCC ON U.username = UCC.username
+    LEFT JOIN (select beCaredId 'beCaredId'  ,count(1) 'count' from t_user_observe_user group by beCaredId )UOU on U.username = UOU.beCaredId
+    LEFT JOIN (select observerId 'observerId'  ,count(1) 'count' from t_user_observe_user group by observerId )UCU on U.username = UCU.observerId
+    where U.username = #{username,jdbcType=VARCHAR} and U.password = #{password,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectUserByUsername" parameterType="java.lang.String" resultType="com.demo.cook.modules.user.model.UserInfo">
+    select
+    U.username, U.password, U.nickname, U.headImg, DATE_FORMAT(U.registerDate,'%Y-%m-%d') 'registerDate', U.gender, U.birthday, U.profession,
+    U.hometown, U.address, U.signature,
+    P.count 'countProduct',
+    R.count 'countRecipe',
+    UCC.count 'countCollect',
+    UOU.count 'countBeCared',
+    UCU.count 'countSubscribe'
+    from t_user U
+    LEFT JOIN (select issuer 'issuer'  ,count(1) 'count' from t_product group by issuer )P on U.username = P.issuer
+    LEFT JOIN (select issuer 'issuer'  ,count(1) 'count' from t_recipe group by issuer )R on U.username = R.issuer
+    LEFT JOIN (select username 'username'  ,count(1) 'count' from t_user_collect group by username) UCC ON U.username = UCC.username
+    LEFT JOIN (select beCaredId 'beCaredId'  ,count(1) 'count' from t_user_observe_user group by beCaredId )UOU on U.username = UOU.beCaredId
+    LEFT JOIN (select observerId 'observerId'  ,count(1) 'count' from t_user_observe_user group by observerId )UCU on U.username = UCU.observerId
+    where U.username = #{username,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectMyCareUsers" parameterType="java.lang.String" resultType="com.demo.cook.modules.user.model.UserInfo">
+    select
+    U.username, U.nickname, U.headImg, DATE_FORMAT(U.registerDate,'%Y-%m-%d') 'registerDate', U.gender, U.birthday, U.profession,
+    U.hometown, U.address, U.signature,
+    P.count 'countProduct',
+    R.count 'countRecipe',
+    UCC.count 'countCollect',
+    UOU.count 'countBeCared',
+    UCU.count 'countSubscribe',
+    if(OUC.count>0,TRUE,FALSE) 'subscribe'
+    from t_user_observe_user OU
+    LEFT JOIN t_user U ON OU.beCaredId = U.username
+    LEFT JOIN (select issuer 'issuer'  ,count(1) 'count' from t_product group by issuer )P on U.username = P.issuer
+    LEFT JOIN (select issuer 'issuer'  ,count(1) 'count' from t_recipe group by issuer )R on U.username = R.issuer
+    LEFT JOIN (select username 'username'  ,count(1) 'count' from t_user_collect group by username) UCC ON U.username = UCC.username
+    LEFT JOIN (select beCaredId 'beCaredId'  ,count(1) 'count' from t_user_observe_user group by beCaredId )UOU on U.username = UOU.beCaredId
+    LEFT JOIN (select observerId 'observerId'  ,count(1) 'count' from t_user_observe_user group by observerId )UCU on U.username = UCU.observerId
+    LEFT JOIN (select beCaredId 'beCaredId' ,count(1) 'count' from t_user_observe_user where observerId = #{username,jdbcType=VARCHAR}  group by beCaredId )OUC on U.username = OUC.beCaredId
+    where OU.observerId = #{username,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectUsersRecommend"  resultType="com.demo.cook.modules.user.model.UserInfo">
+    select
+    U.username, U.nickname, U.headImg, DATE_FORMAT(U.registerDate,'%Y-%m-%d') 'registerDate', U.gender, U.birthday, U.profession,
+    U.hometown, U.address, U.signature,
+    P.count 'countProduct',
+    R.count 'countRecipe',
+    UCC.count 'countCollect',
+    UOU.count 'countBeCared',
+    UCU.count 'countSubscribe',
+    if(OUC.count>0,TRUE,FALSE) 'subscribe'
+    from t_user U
+    LEFT JOIN (select issuer 'issuer'  ,count(1) 'count' from t_product group by issuer )P on U.username = P.issuer
+    LEFT JOIN (select issuer 'issuer'  ,count(1) 'count' from t_recipe group by issuer )R on U.username = R.issuer
+    LEFT JOIN (select username 'username'  ,count(1) 'count' from t_user_collect group by username) UCC ON U.username = UCC.username
+    LEFT JOIN (select beCaredId 'beCaredId'  ,count(1) 'count' from t_user_observe_user group by beCaredId )UOU on U.username = UOU.beCaredId
+    LEFT JOIN (select observerId 'observerId'  ,count(1) 'count' from t_user_observe_user group by observerId )UCU on U.username = UCU.observerId
+    LEFT JOIN (select beCaredId 'beCaredId' ,count(1) 'count' from t_user_observe_user where observerId = #{username,jdbcType=VARCHAR}  group by beCaredId )OUC on U.username = OUC.beCaredId
+    where NOT EXISTS (SELECT * FROM t_user_observe_user WHERE observerId = #{username,jdbcType=VARCHAR} and beCaredId = U.username)
+    <if test="username !=null and username!='' ">
+      and U.username != #{username,jdbcType=VARCHAR}
+    </if>
+    order by UOU.count desc
+  </select>
+
+</mapper>

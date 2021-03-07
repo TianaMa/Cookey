@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.cook.modules.collect.mapper.CollectMapper">
+
+
+
+  <insert id="addCollect" parameterType="java.lang.String">
+    INSERT INTO t_user_collect (username,targetId)
+    VALUE (#{username,jdbcType=VARCHAR},#{targetId,jdbcType=VARCHAR})
+  </insert>
+
+  <delete id="cancelCollect" parameterType="java.lang.String">
+    DELETE FROM t_user_collect
+    where username = #{username,jdbcType=VARCHAR}
+    and targetId = #{targetId,jdbcType=VARCHAR}
+  </delete>
+
+</mapper>

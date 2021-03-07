@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.cook.modules.product.mapper.ProductMapper">
+
+
+  <insert id="insertProduct" parameterType="com.demo.cook.modules.product.model.Product">
+    insert into t_product (productId, issuer, title, content, images, tagId, createTime)
+    values (#{productId,jdbcType=VARCHAR}, #{issuer,jdbcType=VARCHAR},
+    #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
+    #{images,jdbcType=VARCHAR}, #{tagId,jdbcType=VARCHAR},
+    SYSDATE() )
+
+  </insert>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_product
+    where productId = #{productId,jdbcType=VARCHAR}
+
+  </delete>
+
+  <update id="updateByProductIdSelective" parameterType="com.demo.cook.modules.product.model.Product">
+    update t_product
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+
+      <if test="images != null">
+        content = #{images,jdbcType=VARCHAR},
+      </if>
+      <if test="tagId != null">
+        content = #{tagId,jdbcType=VARCHAR},
+      </if>
+
+      createTime = SYSDATE(),
+    </set>
+    where productId = #{productId,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="queryProductList" parameterType="com.demo.cook.modules.product.model.QueryProductParams" resultType="com.demo.cook.modules.product.model.ProductDetails">
+    select
+    P.productId,  P.title, P.content, P.images, P.tagId, P.createTime,P.issuer,
+    PT.tagName,
+    U.nickName , U.headImg,
+    CD.count 'countCollect',
+    PD.count 'countPraise',
+    CM.count 'countComment',
+    if(ICD.count>0,TRUE,FALSE) 'collected',
+    if(IPD.count>0,TRUE,FALSE) 'praised'
+    from t_product P
+    left join t_product_tag PT ON P.tagId = PT.tagId
+    LEFT JOIN (select targetId 'targetId'  ,count(1) 'count' from t_user_collect group by targetId )CD on P.productId= CD.targetId
+    LEFT JOIN (select targetId 'targetId'  ,count(1) 'count' from t_user_praise group by targetId )PD on P.productId= PD.targetId
+    LEFT JOIN (select targetId 'targetId'  ,count(1) 'count' from t_user_comment group by targetId )CM on P.productId= CM.targetId
+    LEFT JOIN (select targetId 'targetId'  ,count(1) 'count' from t_user_collect where username = #{loginUserName,jdbcType=VARCHAR} group by targetId  )ICD on P.productId= ICD.targetId
+    LEFT JOIN (select targetId 'targetId'  ,count(1) 'count' from t_user_praise where username = #{loginUserName,jdbcType=VARCHAR} group by targetId  )IPD on P.productId= IPD.targetId
+    LEFT JOIN t_user U ON P.issuer = U.username
+    <if test="collector !=null and collector !='' ">
+      LEFT JOIN  t_user_collect UC ON P.productId = UC.targetId
+    </if>
+
+    where 1=1
+
+    <if test="searchText !=null and searchText != ''">
+        and P.title like '%${searchText}%'
+    </if>
+
+    <if test="tagId !=null and tagId !=''">
+      and P.tagId = #{tagId,jdbcType=VARCHAR}
+    </if>
+
+    <if test="collector !=null and collector !='' ">
+      and UC.username = #{collector,jdbcType=VARCHAR}
+    </if>
+
+    <if test="issuer !=null and issuer != ''">
+      and P.issuer = #{issuer,jdbcType=VARCHAR}
+    </if>
+    <choose>
+      <when test="order !=null and order == 'collect'">
+        order by CD.count desc
+      </when>
+      <when test="order !=null and order == 'praise'">
+        order by PD.count desc
+      </when>
+      <when test="order !=null and order == 'time'">
+        order by P.createTime desc
+      </when>
+      <otherwise>
+        order by P.createTime desc
+      </otherwise>
+    </choose>
+
+
+  </select>
+
+</mapper>

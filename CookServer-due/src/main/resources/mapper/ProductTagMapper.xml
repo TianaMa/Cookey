@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.cook.modules.product.mapper.ProductTagMapper">
+
+
+  <select id="selectProductTags" resultType="com.demo.cook.modules.product.model.ProductTag">
+    select PT.tagId,PT.tagName ,PTR.count 'productCount'
+    from t_product_tag PT LEFT JOIN (
+        select tagId,count(1) 'count' from t_product GROUP BY tagId
+    ) PTR ON PT.tagId= PTR.tagId
+  </select>
+</mapper>

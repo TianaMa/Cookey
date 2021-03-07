@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.cook.modules.recipe.mapper.RecipeMapper">
+
+
+
+  <insert id="insertSelective" parameterType="com.demo.cook.modules.recipe.model.Recipe">
+    insert into t_recipe
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      recipeId,
+      <if test="issuer != null">
+        issuer,
+      </if>
+      <if test="recipeName != null">
+        recipeName,
+      </if>
+      <if test="cover != null">
+        cover,
+      </if>
+      <if test="recipeDescribe != null">
+        recipeDescribe,
+      </if>
+      <if test="tips != null">
+        tips,
+      </if>
+      createTime,
+      <if test="sortId != null">
+        sortId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{recipeId,jdbcType=VARCHAR},
+      <if test="issuer != null">
+        #{issuer,jdbcType=VARCHAR},
+      </if>
+      <if test="recipeName != null">
+        #{recipeName,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null">
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="recipeDescribe != null">
+        #{recipeDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="tips != null">
+        #{tips,jdbcType=VARCHAR},
+      </if>
+      SYSDATE(),
+      <if test="sortId != null">
+        #{sortId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_recipe
+    where recipeId = #{recipeId,jdbcType=VARCHAR}
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.demo.cook.modules.recipe.model.Recipe">
+    update t_recipe
+    <set>
+      <if test="issuer != null">
+        issuer = #{issuer,jdbcType=VARCHAR},
+      </if>
+      <if test="recipeName != null">
+        recipeName = #{recipeName,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null">
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="recipeDescribe != null">
+        recipeDescribe = #{recipeDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="tips != null">
+        tips = #{tips,jdbcType=VARCHAR},
+      </if>
+      createTime = SYSDATE(),
+      <if test="sortId != null">
+        sortId = #{sortId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where recipeId = #{recipeId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="queryRecipeList" parameterType="com.demo.cook.modules.recipe.model.QueryRecipeParams" resultType="com.demo.cook.modules.recipe.model.RecipeBrief">
+    select
+    R.recipeId, R.recipeName, R.cover, R.recipeDescribe,R.tips,R.sortId, R.createTime,R.issuer,
+    U.nickname, U.headImg,
+    CD.count 'countCollect',
+    PD.count 'countPraise',
+    CM.count 'countComment',
+    if(ICD.count>0,TRUE,FALSE) 'collected',
+    if(IPD.count>0,TRUE,FALSE) 'praised'
+    from t_recipe R
+    LEFT JOIN t_user U ON R.issuer = U.username
+    LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_collect group by targetId )CD on R.recipeId= CD.targetId
+    LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_praise group by targetId )PD on R.recipeId= PD.targetId
+    LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_comment group by targetId )CM on R.recipeId= CM.targetId
+    LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_collect where username = #{loginUserName,jdbcType=VARCHAR} group by targetId )ICD on R.recipeId= ICD.targetId
+    LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_praise where username = #{loginUserName,jdbcType=VARCHAR} group by targetId )IPD on R.recipeId= IPD.targetId
+    <if test="collector !=null and collector !='' ">
+      INNER JOIN  t_user_collect UC ON R.recipeId = UC.targetId
+    </if>
+    where 1=1
+    <if test="searchText !=null and searchText != ''">
+      and R.recipeName like '%${searchText}%'
+    </if>
+
+    <if test="sortId !=null and sortId !=''">
+      and R.sortId = #{sortId,jdbcType=VARCHAR}
+    </if>
+
+    <if test="issuer !=null and issuer != ''">
+      and R.issuer = #{issuer,jdbcType=VARCHAR}
+    </if>
+
+    <if test="collector !=null and collector !='' ">
+      and UC.username = #{collector,jdbcType=VARCHAR}
+    </if>
+    <choose>
+      <when test="order !=null and order == 'collect'">
+        order by CD.count desc
+      </when>
+      <when test="order !=null and order == 'praise'">
+        order by PD.count desc
+      </when>
+      <when test="order !=null and order == 'time'">
+        order by R.createTime desc
+      </when>
+      <otherwise>
+        order by R.createTime desc
+      </otherwise>
+    </choose>
+
+  </select>
+
+
+  <select id="selectDetailsByRecipeId" parameterType="java.lang.String" resultType="com.demo.cook.modules.recipe.model.RecipeDetails" >
+    select
+    R.recipeId, R.recipeName, R.cover, R.recipeDescribe,R.tips,R.sortId, R.createTime, R.issuer,
+    U.nickname, U.headImg,
+    CD.count 'countCollect',
+    PD.count 'countPraise',
+    CM.count 'countComment',
+    if(ICD.count>0,TRUE,FALSE) 'collected',
+    if(IPD.count>0,TRUE,FALSE) 'praised',
+    if(OUC.count>0,TRUE,FALSE) 'subscribe'
+    from t_recipe R
+    LEFT JOIN t_user U ON R.issuer = U.username
+    LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_collect group by targetId )CD on R.recipeId= CD.targetId
+    LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_praise group by targetId )PD on R.recipeId= PD.targetId
+    LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_comment group by targetId )CM on R.recipeId= CM.targetId
+    LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_collect where username = #{loginUserName,jdbcType=VARCHAR} group by targetId )ICD on R.recipeId= ICD.targetId
+    LEFT JOIN (select targetId 'targetId' ,count(1) 'count' from t_user_praise where username = #{loginUserName,jdbcType=VARCHAR} group by targetId )IPD on R.recipeId= IPD.targetId
+    LEFT JOIN (select beCaredId 'beCaredId' ,count(1) 'count' from t_user_observe_user where observerId =#{loginUserName,jdbcType=VARCHAR}  group by beCaredId )OUC on R.issuer = OUC.beCaredId
+    where recipeId = #{recipeId,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

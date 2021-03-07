@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.cook.modules.recipe.mapper.RecipeStepMapper">
+
+
+  <insert id="batchInsertStep" parameterType="com.demo.cook.modules.recipe.model.RecipeStep">
+    insert into t_recipe_step (recipeId, stepContent, stepImg, orderIndex) values
+    <foreach collection="stepList" item="step" separator=",">
+      (#{recipeId,jdbcType=VARCHAR}, #{step.stepContent,jdbcType=VARCHAR}, #{step.stepImg,jdbcType=VARCHAR}, #{step.orderIndex,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+  <delete id="deleteStepByRecipeId" parameterType="java.lang.String" >
+    delete from t_recipe_step
+    where recipeId = #{recipeId,jdbcType=VARCHAR}
+  </delete>
+
+  <select id="selectStepListByRecipeId" parameterType="java.lang.String" resultType="com.demo.cook.modules.recipe.model.RecipeStep" >
+    select recipeId, stepContent, stepImg, orderIndex from t_recipe_step
+    where recipeId = #{recipeId,jdbcType=VARCHAR}
+  </select>
+
+
+</mapper>

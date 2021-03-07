@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.cook.modules.recipe.mapper.RecipeMaterialMapper">
+
+  <insert id="batchInsertMaterial" parameterType="list">
+    insert into t_recipe_material (recipeId, materialName, dosage, orderIndex) values
+    <foreach collection="materialList" item="material" separator=",">
+      (#{recipeId,jdbcType=VARCHAR}, #{material.materialName,jdbcType=VARCHAR}, #{material.dosage,jdbcType=VARCHAR}, #{material.orderIndex,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+  <delete id="deleteByRecipeId" parameterType="java.lang.String">
+    delete from t_recipe_material
+    where recipeId = #{recipeId,jdbcType=VARCHAR}
+  </delete>
+
+
+  <select id="selectMaterialListByRecipeId" parameterType="java.lang.String" resultType="com.demo.cook.modules.recipe.model.RecipeMaterial" >
+    select
+        recipeId, materialName, dosage, orderIndex
+    from t_recipe_material
+    where recipeId = #{recipeId,jdbcType=VARCHAR}
+  </select>
+
+
+
+
+</mapper>

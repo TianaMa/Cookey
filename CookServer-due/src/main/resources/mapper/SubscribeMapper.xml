@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.cook.modules.subscribe.mapper.SubscribeMapper">
+
+
+  <insert id="addSubscribe" parameterType="java.lang.String">
+    INSERT INTO t_user_observe_user (observerId,beCaredId,createTime)
+    VALUE (#{username,jdbcType=VARCHAR},#{targetUser,jdbcType=VARCHAR},SYSDATE())
+  </insert>
+
+  <delete id="cancelSubscribe" parameterType="java.lang.String">
+    DELETE FROM t_user_observe_user
+    where observerId = #{username,jdbcType=VARCHAR}
+    and beCaredId = #{targetUser,jdbcType=VARCHAR}
+  </delete>
+
+</mapper>

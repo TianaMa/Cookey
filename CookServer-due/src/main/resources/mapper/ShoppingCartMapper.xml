@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.cook.modules.shop.mapper.ShoppingCartMapper">
+
+
+  <select id="queryShoppingCartByPrimaryKey" parameterType="java.lang.String" resultType="com.demo.cook.modules.shop.model.ShoppingCart">
+    select username, goodsId,buyCount from t_shopping_cart
+    where username = #{username,jdbcType=VARCHAR} and  goodsId = #{goodsId,jdbcType=VARCHAR}
+  </select>
+
+  <insert id="insertShoppingCart" parameterType="java.lang.String">
+    insert into t_shopping_cart (username, goodsId,buyCount)
+    values ( #{username,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR},1)
+  </insert>
+
+  <update id="updateShoppingCartCount" parameterType="com.demo.cook.modules.shop.model.ShoppingCart">
+    UPDATE t_shopping_cart set buyCount = #{buyCount}
+    where username = #{username,jdbcType=VARCHAR} and  goodsId = #{goodsId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectShoppingCartCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select SUM(buyCount)  from t_shopping_cart where username = #{username,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteShoppingCart" parameterType="com.demo.cook.modules.shop.model.ShoppingCart">
+    delete from t_shopping_cart
+    where username = #{username,jdbcType=VARCHAR}
+    and goodsId in
+    <foreach collection="goodsIds" item="goodsId" open="(" separator="," close=")">
+      #{goodsId,jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+
+
+  <select id="queryShoppingCart" parameterType="java.lang.String" resultType="com.demo.cook.modules.shop.model.ShoppingCartDetails">
+    SELECT sc.username,sc.goodsId,sc.buyCount ,gs.goodsName, gs.cover , gs.price , gs.originalPrice,gs.goodsDescribe
+    from t_shopping_cart sc
+    LEFT JOIN t_goods gs ON sc.goodsId = gs.goodsId
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+
+
+
+
+
+</mapper>
